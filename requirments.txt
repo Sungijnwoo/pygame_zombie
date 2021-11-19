@@ -1,0 +1,3 @@
+python-opencv
+pygame
+python >= 3.6
