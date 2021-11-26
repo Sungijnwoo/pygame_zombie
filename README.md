@@ -2,7 +2,14 @@
 
 # pygame_zombie
 
-| 시작하는 법
+| Environment Setting
+```
+conda create -n {name}
+conda activate {name}
+pip install -r requirements.txt
+```
+
+| start
 ```
 python pygameZombie.py
 ```

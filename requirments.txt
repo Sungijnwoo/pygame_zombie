@@ -1,3 +1,2 @@
-python-opencv
+numpy
 pygame
-python >= 3.6

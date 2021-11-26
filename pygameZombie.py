@@ -21,36 +21,36 @@ pygame.init()
 score = 0
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption('PyZombie : 좀비 소탕 게임')
-pygame.display.set_icon(pygame.image.load('zombie_icon.jpg'))
+pygame.display.set_icon(pygame.image.load('./imgs/zombie_icon.jpg'))
 fps_clock = pygame.time.Clock()
 FPS = 120
 
 default_font = pygame.font.Font('NanumGothic.ttf', 28)
-background_img = [pygame.image.load('background1.jpg'), pygame.image.load('background2.png')]
-gun1_img = pygame.image.load('gun_1.png')
-fire = pygame.image.load('fire.png')
+background_img = [pygame.image.load('./imgs/background1.jpg'), pygame.image.load('./imgs/background2.png')]
+gun1_img = pygame.image.load('./imgs/gun_1.png')
+fire = pygame.image.load('./imgs/fire.png')
 
-pygame.mixer.music.load('Zombi_Ambience.mp3') 
-gun_sound1 = pygame.mixer.Sound('gun_sound1.wav')
+pygame.mixer.music.load('./sound/Zombi_Ambience.mp3') 
+gun_sound1 = pygame.mixer.Sound('./sound/gun_sound1.wav')
 gun_sound1.set_volume(0.3)
-gun_sound2 = pygame.mixer.Sound('gun_sound2.wav')
-gun_sound3 = pygame.mixer.Sound('gun_sound3.wav')
-become_zombie = pygame.mixer.Sound('become_zombie.wav')
-bullet_reload = pygame.mixer.Sound('bullet_reload.wav')
-nuclear = pygame.mixer.Sound('nuclear.wav')
-damage_sound = pygame.mixer.Sound('damage.wav')
+gun_sound2 = pygame.mixer.Sound('./sound/gun_sound2.wav')
+gun_sound3 = pygame.mixer.Sound('./sound/gun_sound3.wav')
+become_zombie = pygame.mixer.Sound('./sound/become_zombie.wav')
+bullet_reload = pygame.mixer.Sound('./sound/bullet_reload.wav')
+nuclear = pygame.mixer.Sound('./sound/nuclear.wav')
+damage_sound = pygame.mixer.Sound('./sound/damage.wav')
 bullet_reload.set_volume(1)
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player,self).__init__()
-        self.image = pygame.image.load('player_l.png')
+        self.image = pygame.image.load('./imgs/player_l.png')
         self.rect = self.image.get_rect()
         self.centerx = self.rect.centerx
         self.centery = self.rect.centery
         self.width = self.rect.size[0]
         self.height = self.rect.size[1]
-        self.gun = pygame.image.load('gun_1.png')
+        self.gun = pygame.image.load('./imgs/gun_1.png')
         self.dx = 0
         self.dy = 0
         self.hp = 100
@@ -86,7 +86,7 @@ class Player(pygame.sprite.Sprite):
 class Aim(pygame.sprite.Sprite):
     def __init__(self):
         super(Aim,self).__init__()
-        self.image = pygame.image.load('gun_point.png')
+        self.image = pygame.image.load('./imgs/gun_point.png')
         self.rect = self.image.get_rect()
         self.rest = '∞'
         self.bullets = 30
@@ -116,7 +116,7 @@ class Aim(pygame.sprite.Sprite):
                 return sprite
 
     def fireinthehole(self):
-        self.image = pygame.image.load('fire_point.png')
+        self.image = pygame.image.load('./imgs/fire_point.png')
         self.rect = self.image.get_rect()
         self.damage = 100
 
@@ -127,7 +127,7 @@ class Aim(pygame.sprite.Sprite):
 class Zombie(pygame.sprite.Sprite):
     def __init__(self, xpos, ypos, speed):
         super(Zombie, self).__init__()
-        zombies=('zombie_n.jpg', 'zombie_s.png', 'zombie_ad.jpg')
+        zombies=('./imgs/zombie_n.jpg', './imgs/zombie_s.png', './imgs/zombie_ad.jpg')
         self.image = pygame.image.load(random.choice(zombies))
         self.rect = self.image.get_rect()
         self.rect.x = xpos
@@ -170,7 +170,7 @@ def zombie_direction(speed):
 class Gun(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super(Gun, self).__init__()
-        GUNS = ('gun_2.png', 'gun_3.png', 'fire.png', 'hp.jpg', 'speed.png')
+        GUNS = ('./imgs/gun_2.png', './imgs/gun_3.png', './imgs/fire.png', './imgs/hp.jpg', './imgs/speed.png')
         self.choice = random.choice(GUNS)
         self.image = pygame.image.load(self.choice)
         self.rect = self.image.get_rect()
@@ -324,9 +324,9 @@ def game_loop():
                 if event.type == pygame.MOUSEMOTION:
                     aim.set_pos(*pygame.mouse.get_pos())
                     if aim.rect.x < player.rect.x:
-                        player.image = pygame.image.load('player_l.png')
+                        player.image = pygame.image.load('./imgs/player_l.png')
                     else:
-                        player.image = pygame.image.load('player_r.png')
+                        player.image = pygame.image.load('./imgs/player_r.png')
 
                 if aim.bullets != 0:
                     re = 0
@@ -334,7 +334,7 @@ def game_loop():
                         if aim.damage == 100:
                             aim.fire_shoot()
                             aim.damage = temp
-                            aim.image = pygame.image.load('gun_point.png')
+                            aim.image = pygame.image.load('./imgs/gun_point.png')
                             shooting_zombie = aim.collide(zombies)
                             sleep(1)
                             while shooting_zombie:
@@ -355,7 +355,7 @@ def game_loop():
                     if aim.rest == 0:
                         aim.bullets = 30
                         aim.rest = '∞'
-                        player.gun = pygame.image.load('gun_1.png')
+                        player.gun = pygame.image.load('./imgs/gun_1.png')
                         aim.sound = gun_sound1
                         aim.damage = 10
                         break
